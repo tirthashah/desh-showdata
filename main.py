@@ -11,9 +11,8 @@ import time
 
 # Initialize the Chrome driver
 options = Options()
-# options.add_argument('--headless')  # Run in headless mode
-# options.add_argument('--no-sandbox')  # Bypass OS security model
-# options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
+# options.add_argument('--headless')  # Run in headless
+
 
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
