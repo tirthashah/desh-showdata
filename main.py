@@ -1,5 +1,5 @@
 import os
-
+from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver import ActionChains
 from selenium.webdriver.chrome.service import Service as ChromeService
@@ -10,8 +10,14 @@ from selenium.webdriver.common.by import By
 import time
 
 # Initialize the Chrome driver
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+# options = Options()
+# options.add_argument('--headless')  # Run in headless mode
+# options.add_argument('--no-sandbox')  # Bypass OS security model
+# options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
 
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), )
+
+driver.maximize_window()
 
 def login():
     driver.get("https://bitnbinary.bnbrun.com/dashboard")
