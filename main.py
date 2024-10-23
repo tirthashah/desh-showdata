@@ -10,12 +10,14 @@ from selenium.webdriver.common.by import By
 import time
 
 # Initialize the Chrome driver
-# options = Options()
+options = Options()
 # options.add_argument('--headless')  # Run in headless mode
 # options.add_argument('--no-sandbox')  # Bypass OS security model
 # options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
 
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), )
+print("Using ChromeDriver from:", ChromeDriverManager().install())
+
+driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
 
 driver.maximize_window()
 
