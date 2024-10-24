@@ -12,9 +12,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 # Configure Chrome options
 def configure_chrome_options():
     options = Options()
-    options.add_argument("--headless")  # Run in headless mode
-    options.add_argument("--no-sandbox")  # Bypass OS security model
-    options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
     return options
 
 # Create the driver
