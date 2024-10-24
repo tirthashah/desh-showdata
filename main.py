@@ -42,13 +42,13 @@ def login(driver):
     sign_in = driver.find_element(By.XPATH, './/button[@id="kt_sign_in_submit"]')
     sign_in.click()
 
-def navigate_to_attendance(driver):
-    print("Navigating to Attendance section...")
-    attendance_link = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Attendance"]'))
-    )
-    attendance_link.click()
-    time.sleep(5)
+# def navigate_to_attendance(driver):
+#     print("Navigating to Attendance section...")
+#     attendance_link = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Attendance"]'))
+#     )
+#     attendance_link.click()
+#     time.sleep(5)
 
 # def navigate_to_projects_management(driver):
 #     print("Navigating to Projects Management section...")
@@ -134,7 +134,7 @@ def main():
     driver = create_driver()
     try:
         login(driver)
-        navigate_to_attendance(driver)
+        # navigate_to_attendance(driver)
         # navigate_to_projects_management(driver)
         # click_filter_select(driver)
         # navigate_to_public_data(driver)
