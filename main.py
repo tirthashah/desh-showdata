@@ -7,18 +7,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
 
 # Initialize the Chrome driver
 options = Options()
-# options.add_argument('--headless')  # Run in headless mode
-options.add_argument('--log-path=/tmp/chromedriver.log')
-options.add_argument('--no-sandbox')  # Bypass OS security model
-options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
-
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
-
-driver.maximize_window()
+options.binary_location = "C:\\path\\to\\chrome.exe"    #chrome binary location specified here
+options.add_argument("--start-maximized") #open Browser in maximized mode
+options.add_argument("--no-sandbox") #bypass OS security model
+options.add_argument("--disable-dev-shm-usage") #overcome limited resource problems
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option('useAutomationExtension', False)
+driver = webdriver.Chrome(options=options, executable_path=r'C:\path\to\chromedriver.exe')
+driver.get('http://google.com/')
 
 def login():
     driver.get("https://bitnbinary.bnbrun.com/dashboard")
