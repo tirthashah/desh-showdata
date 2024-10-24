@@ -8,7 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-# Configure Chrome options
+
 def configure_chrome_options():
     print("Configuring Chrome options...")
     options = Options()
@@ -50,84 +50,84 @@ def navigate_to_attendance(driver):
     attendance_link.click()
     time.sleep(5)
 
-def navigate_to_projects_management(driver):
-    print("Navigating to Projects Management section...")
-    projects_management_menu = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Projects Management"]'))
-    )
-    projects_management_menu.click()
+# def navigate_to_projects_management(driver):
+#     print("Navigating to Projects Management section...")
+#     projects_management_menu = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Projects Management"]'))
+#     )
+#     projects_management_menu.click()
 
-    print("Navigating to Projects menu...")
-    projects_menu = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/a[@class="menu-link without-sub" and .//span[@class="menu-title" and normalize-space(text())="Projects"]]'))
-    )
-    projects_menu.click()
+#     print("Navigating to Projects menu...")
+#     projects_menu = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, './/a[@class="menu-link without-sub" and .//span[@class="menu-title" and normalize-space(text())="Projects"]]'))
+#     )
+#     projects_menu.click()
 
-    print("Clicking the View button for a project...")
-    view_button = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/span[@class="badge badge-light-primary fw-bold me-auto px-4 py-3" and normalize-space(text())="View"]'))
-    )
-    view_button.click()
+#     print("Clicking the View button for a project...")
+#     view_button = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, './/span[@class="badge badge-light-primary fw-bold me-auto px-4 py-3" and normalize-space(text())="View"]'))
+#     )
+#     view_button.click()
 
-def click_filter_select(driver):
-    print("Selecting filter 'Bit & Binary'...")
-    filter_select_button = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/a[contains(text(),"Bit & Binary")]'))
-    )
-    filter_select_button.click()
-    time.sleep(5)
+# def click_filter_select(driver):
+#     print("Selecting filter 'Bit & Binary'...")
+#     filter_select_button = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, './/a[contains(text(),"Bit & Binary")]'))
+#     )
+#     filter_select_button.click()
+#     time.sleep(5)
 
-def navigate_to_public_data(driver):
-    print("Navigating to Public Data section...")
-    public_data_link = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="publicdata"]'))
-    )
-    public_data_link.click()
-    time.sleep(5)
+# def navigate_to_public_data(driver):
+#     print("Navigating to Public Data section...")
+#     public_data_link = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="publicdata"]'))
+#     )
+#     public_data_link.click()
+#     time.sleep(5)
 
-def navigate_to_overview(driver):
-    print("Navigating to Organization Overview...")
-    organization_menu = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Organization"]'))
-    )
-    organization_menu.click()
+# def navigate_to_overview(driver):
+#     print("Navigating to Organization Overview...")
+#     organization_menu = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Organization"]'))
+#     )
+#     organization_menu.click()
 
-    print("Navigating to Overview page...")
-    overview = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Overview"]'))
-    )
-    overview.click()
+#     print("Navigating to Overview page...")
+#     overview = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Overview"]'))
+#     )
+#     overview.click()
 
-    print("Clicking Edit Profile...")
-    edit_profile = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, '//*[@id="kt_profile_details_view"]/div[1]/a'))
-    )
-    edit_profile.click()
+#     print("Clicking Edit Profile...")
+#     edit_profile = WebDriverWait(driver, 10).until(
+#         EC.element_to_be_clickable((By.XPATH, '//*[@id="kt_profile_details_view"]/div[1]/a'))
+#     )
+#     edit_profile.click()
 
-    print("Filling in description field...")
-    description = WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located((By.XPATH, './/textarea[@formcontrolname="description"]'))
-    )
-    description.send_keys("about work")
+#     print("Filling in description field...")
+#     description = WebDriverWait(driver, 10).until(
+#         EC.visibility_of_element_located((By.XPATH, './/textarea[@formcontrolname="description"]'))
+#     )
+#     description.send_keys("about work")
 
-    print("Clicking checkboxes...")
-    checkboxes = [
-        './/input[@type="checkbox" and @formcontrolname="show_products_in_bnbmart "]',
-        './/input[@type="checkbox" and @formcontrolname="show_price_in_bnbmart"]',
-        './/input[@type="checkbox" and @formcontrolname="show_jobs_in_bnbhiring"]'
-    ]
+    # print("Clicking checkboxes...")
+    # checkboxes = [
+    #     './/input[@type="checkbox" and @formcontrolname="show_products_in_bnbmart "]',
+    #     './/input[@type="checkbox" and @formcontrolname="show_price_in_bnbmart"]',
+    #     './/input[@type="checkbox" and @formcontrolname="show_jobs_in_bnbhiring"]'
+    # ]
 
-    for checkbox_xpath in checkboxes:
-        checkbox = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, checkbox_xpath))
-        )
-        checkbox.click()
+    # for checkbox_xpath in checkboxes:
+    #     checkbox = WebDriverWait(driver, 10).until(
+    #         EC.element_to_be_clickable((By.XPATH, checkbox_xpath))
+    #     )
+    #     checkbox.click()
 
-    print("Clicking the Save button...")
-    save_button = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, './/button[@type="submit" and normalize-space(text())="Save"]'))
-    )
-    save_button.click()
+    # print("Clicking the Save button...")
+    # save_button = WebDriverWait(driver, 10).until(
+    #     EC.element_to_be_clickable((By.XPATH, './/button[@type="submit" and normalize-space(text())="Save"]'))
+    # )
+    # save_button.click()
 
 def main():
     print("Starting the Selenium automation script...")
@@ -135,10 +135,10 @@ def main():
     try:
         login(driver)
         navigate_to_attendance(driver)
-        navigate_to_projects_management(driver)
-        click_filter_select(driver)
-        navigate_to_public_data(driver)
-        navigate_to_overview(driver)
+        # navigate_to_projects_management(driver)
+        # click_filter_select(driver)
+        # navigate_to_public_data(driver)
+        # navigate_to_overview(driver)
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
