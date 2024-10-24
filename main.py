@@ -85,7 +85,7 @@ def navigate_to_overview(driver):
     overview.click()
 
     edit_profile = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, '//*[@id="kt_profile_details_view"]/div[1]/a']))
+        EC.element_to_be_clickable((By.XPATH, '//*[@id="kt_profile_details_view"]/div[1]/a'))
     )
     edit_profile.click()
 
@@ -95,14 +95,14 @@ def navigate_to_overview(driver):
     description.send_keys("about work")
 
     checkboxes = [
-        ('.//input[@type="checkbox" and @formcontrolname="show_products_in_bnbmart"]'),
-        ('.//input[@type="checkbox" and @formcontrolname="show_price_in_bnbmart"]'),
-        ('.//input[@type="checkbox" and @formcontrolname="show_jobs_in_bnbhiring"]')
+        './/input[@type="checkbox" and @formcontrolname="show_products_in_bnbmart "]',
+        './/input[@type="checkbox" and @formcontrolname="show_price_in_bnbmart"]',
+        './/input[@type="checkbox" and @formcontrolname="show_jobs_in_bnbhiring"]'
     ]
 
     for checkbox_xpath in checkboxes:
         checkbox = WebDriverWait(driver, 10).until(
- EC.element_to_be_clickable((By.XPATH, checkbox_xpath[0]))
+            EC.element_to_be_clickable((By.XPATH, checkbox_xpath))
         )
         checkbox.click()
 
