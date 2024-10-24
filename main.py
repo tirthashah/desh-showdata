@@ -1,107 +1,129 @@
 import os
 import time
-import logging
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-
-# Create Chrome options
-options = Options()
-options.add_argument("--headless")  # Run in headless mode
-options.add_argument("--no-sandbox")  # Bypass OS security model
-options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+# Configure Chrome options
+def configure_chrome_options():
+    options = Options()
+    options.add_argument("--headless")  # Run in headless mode
+    options.add_argument("--no-sandbox")  # Bypass OS security model
+    options.add_argument("--disable-dev-shm-usage")  # Overcome limited resource problems
+    return options
 
 # Create the driver
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+def create_driver():
+    options = configure_chrome_options()
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    return driver
 
-def login():
+def login(driver):
+    driver.get("https://bitnbinary.bnbrun.com/dashboard")
+    time.sleep(4)
+
+    email_input = driver.find_element(By.XPATH, './/input[@name="email"]')
+    email_input.send_keys("tirtha.shah@bitnbinary.com")
+
+    password_input = driver.find_element(By.XPATH, './/input[@name="password"]')
+    password_input.send_keys("Tirtha@12")
+
+    sign_in = driver.find_element(By.XPATH, './/button[@id="kt_sign_in_submit"]')
+    sign_in.click()
+
+def navigate_to_attendance(driver):
+    attendance_link = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Attendance"]'))
+    )
+    attendance_link.click()
+    time.sleep(5)
+
+def navigate_to_projects_management(driver):
+    projects_management_menu = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Projects Management"]'))
+    )
+    projects_management_menu.click()
+
+    projects_menu = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/a[@class="menu-link without-sub" and .//span[@class="menu-title" and normalize-space(text())="Projects"]]'))
+    )
+    projects_menu.click()
+
+    view_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/span[@class="badge badge-light-primary fw-bold me-auto px-4 py-3" and normalize-space(text())="View"]'))
+    )
+    view_button.click()
+
+def click_filter_select(driver):
+    filter_select_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/a[contains(text(),"Bit & Binary")]'))
+    )
+    filter_select_button.click()
+    time.sleep(5)
+
+def navigate_to_public_data(driver):
+    public_data_link = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="publicdata"]'))
+    )
+    public_data_link.click()
+    time.sleep(5)
+
+def navigate_to_overview(driver):
+    organization_menu = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Organization"]'))
+    )
+    organization_menu.click()
+
+    overview = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Overview"]'))
+    )
+    overview.click()
+
+    edit_profile = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '//*[@id="kt_profile_details_view"]/div[1]/a']))
+    )
+    edit_profile.click()
+
+    description = WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located((By.XPATH, './/textarea[@formcontrolname="description"]'))
+    )
+    description.send_keys("about work")
+
+    checkboxes = [
+        ('.//input[@type="checkbox" and @formcontrolname="show_products_in_bnbmart"]'),
+        ('.//input[@type="checkbox" and @formcontrolname="show_price_in_bnbmart"]'),
+        ('.//input[@type="checkbox" and @formcontrolname="show_jobs_in_bnbhiring"]')
+    ]
+
+    for checkbox_xpath in checkboxes:
+        checkbox = WebDriverWait(driver, 10).until(
+ EC.element_to_be_clickable((By.XPATH, checkbox_xpath[0]))
+        )
+        checkbox.click()
+
+    save_button = WebDriverWait(driver, 10).until(
+        EC.element_to_be_clickable((By.XPATH, './/button[@type="submit" and normalize-space(text())="Save"]'))
+    )
+    save_button.click()
+
+def main():
+    driver = create_driver()
     try:
-        driver.get("https://bitnbinary.bnbrun.com/dashboard")
-        time.sleep(4)
-
-        email_input = driver.find_element(By.XPATH, './/input[@name="email"]')
-        email_input.send_keys("tirtha.shah@bitnbinary.com")
-
-        password_input = driver.find_element(By.XPATH, './/input[@name="password"]')
-        password_input.send_keys("Tirtha@12")
-
-        sign_in = driver.find_element(By.XPATH, './/button[@id="kt_sign_in_submit"]')
-        sign_in.click()
-        logging.info("Logged in successfully.")
+        login(driver)
+        navigate_to_attendance(driver)
+        navigate_to_projects_management(driver)
+        click_filter_select(driver)
+        navigate_to_public_data(driver)
+        navigate_to_overview(driver)
     except Exception as e:
-        logging.error(f"Login failed: {e}")
+        print(f"An error occurred: {e}")
+    finally:
+        driver.quit()
 
-def navigate_to_attendance():
-    try:
-        attendance_link = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Attendance"]'))
-        )
-        attendance_link.click()
-        time.sleep(5)
-        logging.info("Navigated to Attendance.")
-    except Exception as e:
-        logging.error(f"Failed to navigate to Attendance: {e}")
-
-def navigate_to_projects_management():
-    try:
-        projects_management_menu = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Projects Management"]'))
-        )
-        projects_management_menu.click()
-
-        projects_menu = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, './/a[@class="menu-link without-sub" and .//span[@class="menu-title" and normalize-space(text())="Projects"]]'))
-        )
-        projects_menu.click()
-
-        view_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, './/span[@class="badge badge-light-primary fw-bold me-auto px-4 py-3" and normalize-space(text())="View"]'))
-        )
-        view_button.click()
-        logging.info("Navigated to Projects Management.")
-    except Exception as e:
-        logging.error(f"Failed to navigate to Projects Management: {e}")
-
-def click_filter_select():
-    try:
-        filter_select_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, './/a[contains(text(),"Bit & Binary")]'))
-        )
-        filter_select_button.click()
-        time.sleep(5)
-        logging.info("Clicked on filter select.")
-    except Exception as e:
-        logging.error(f"Failed to click filter select: {e}")
-
-def navigate_to_public_data():
-    try:
-        public_data_link = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="publicdata"]'))
-        )
-        public_data_link.click()
-        time.sleep(5)
-        logging.info("Navigated to Public Data.")
-    except Exception as e:
-        logging.error(f"Failed to navigate to Public Data: {e}")
-
-def navigate_to_overview():
-    try:
-        organization_menu = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Organization"]'))
-        )
-        organization_menu.click()
-
-        overview = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, './/span[@class="menu-title" and normalize-space(text())="Overview"]'))
-        )
-        overview.click()
-
-        edit_profile = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[@id="kt_profile_details_view"]/div[1]/a
+if __name__ == "__main__":
+    main()
